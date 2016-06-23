@@ -1,9 +1,27 @@
 angular.module('starter.services', [])
 
-.factory('Chats', function() {
+.factory('Chats', function($http) {
+  var chats = [];
   // Might use a resource here that returns a JSON array
+  $http.get('https://www.reddit.com/r/Android/.json')
+    .success(function(response){
+      angular.forEach(response.data.children, function(child){
+        // console.log(child.data.id);
+        if (child.data.preview) {
+          chats.push({
+            id: child.data.id,
+            name: child.data.domain,
+            lastText: child.data.title,
+            face: child.data.preview.images[0].source.url
+          });
+          console.log(child.data.id);
+          console.log(child.data.preview.images[0].source.url); //"preview": {"images": [{"source": {"url":
+        }
 
+      });
+    });
   // Some fake testing data
+  /*
   var chats = [{
     id: 0,
     name: 'Ben Sparrow',
@@ -30,7 +48,7 @@ angular.module('starter.services', [])
     lastText: 'This is wicked good ice cream.',
     face: 'img/mike.png'
   }];
-
+  */
   return {
     all: function() {
       return chats;
@@ -40,7 +58,7 @@ angular.module('starter.services', [])
     },
     get: function(chatId) {
       for (var i = 0; i < chats.length; i++) {
-        if (chats[i].id === parseInt(chatId)) {
+        if (chats[i].id === (chatId)) { //parseInt
           return chats[i];
         }
       }
