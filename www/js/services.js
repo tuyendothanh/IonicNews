@@ -63,6 +63,13 @@ angular.module('starter.services', [])
         }
       }
       return null;
+    },
+    image_urls: function() {
+      var img_urls = [];
+      for (var i = 0; i < chats.length; i++) {
+        img_urls.push(chats[i].face);
+      }
+      return img_urls;
     }
   };
 });

@@ -1,6 +1,41 @@
 angular.module('starter.controllers', [])
 
-.controller('DashCtrl', function($scope) {})
+.filter('inSlicesOf',
+		['$rootScope',
+		function($rootScope) {
+			makeSlices = function(items, count) {
+				if (!count)
+					count = 3;
+
+				if (!angular.isArray(items) && !angular.isString(items)) return items;
+
+				var array = [];
+				for (var i = 0; i < items.length; i++) {
+					var chunkIndex = parseInt(i / count, 10);
+					var isFirst = (i % count === 0);
+					if (isFirst)
+						array[chunkIndex] = [];
+					array[chunkIndex].push(items[i]);
+				}
+
+				if (angular.equals($rootScope.arrayinSliceOf, array))
+					return $rootScope.arrayinSliceOf;
+				else
+					$rootScope.arrayinSliceOf = array;
+
+				return array;
+			};
+
+			return makeSlices;
+		}]
+	)
+
+.controller('DashCtrl', function($scope, Chats) {
+  $scope.myTitle = 'Template';
+  $scope.$on('$ionicView.enter', function(e) {
+    $scope.items = Chats.image_urls();
+  });
+})
 
 .controller('ChatsCtrl', function($scope, Chats) {
   // With the new view caching in Ionic, Controllers are only called
@@ -8,8 +43,9 @@ angular.module('starter.controllers', [])
   // To listen for when this page is active (for example, to refresh data),
   // listen for the $ionicView.enter event:
   //
-  //$scope.$on('$ionicView.enter', function(e) {
-  //});
+  $scope.$on('$ionicView.enter', function(e) {
+    console.log('$ionicView.enter');
+  });
 
   $scope.chats = Chats.all();
   $scope.remove = function(chat) {
