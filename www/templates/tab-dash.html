@@ -1,17 +1,21 @@
 <ion-view view-title="Dashboard">
-  <ion-content has-header="true">
+  <ion-content has-header="true" padding="false">
       <div class="row" ng-repeat="row in items | inSlicesOf:2">
-          <div class="col col-25" ng-repeat="item in row">
-            <img ng-src="{{item}}" width="100%">
+          <div class="col col-50" ng-repeat="item in row">
+            <div class="wrapper">
+              <img ng-src="{{item.image}}" width="100%">
+              <p>{{item.category}}</p>
+            </div>
+
           </div>
       </div>
-      <div class="row" ng-repeat="row in items | inSlicesOf:2">
+      <!--div class="row" ng-repeat="row in items | inSlicesOf:2">
         <div class="col col-50" ng-repeat="item in row">
-          <img ng-src="{{item}}" width="100px" height="100px">
+          <img ng-src="{{item.image}}" width="100px" height="100px">
           <hr/>
-          <div>even: {{$even}} {{image}}</div>
+          <div>even: {{item.category}} {{$even}} {{image}}</div>
         </div>
-      </div>
+      </div-->
   </ion-content>
 
 </ion-view>

@@ -6,6 +6,17 @@
 -->
 <ion-view view-title="{{chat.name}}">
   <ion-content class="padding">
+    <div class="row">
+      <div class="col col-25">
+        <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
+      </div>
+      <div class="col">
+        <p>
+          {{chat.lastText}}
+        </p>
+      </div>
+    </div>
+    <hr>
     <img ng-src="{{chat.face}}" style="width: 64px; height: 64px">
     <p>
       {{chat.lastText}}

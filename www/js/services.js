@@ -1,6 +1,6 @@
-angular.module('starter.services', [])
+var starter_services = angular.module('starter.services', []);
 
-.factory('Chats', function($http) {
+starter_services.factory('Chats', function($http) {
   var chats = [];
   // Might use a resource here that returns a JSON array
   $http.get('https://www.reddit.com/r/Android/.json')
@@ -70,6 +70,41 @@ angular.module('starter.services', [])
         img_urls.push(chats[i].face);
       }
       return img_urls;
+    }
+  };
+});
+
+starter_services.factory('Categories', function($http) {
+  var categories = [];
+  // Might use a resource here that returns a JSON array
+  $http.get('http://localhost:3000/api/categories')
+    .success(function(response){
+      console.log(response);
+      angular.forEach(response, function(category){
+        console.log(category);
+        if (category) {
+          categories.push({
+            category: category.category,
+            image:category.image
+          });
+
+        }
+      });
+    });
+  return {
+    all: function() {
+      return categories;
+    },
+    remove: function(category) {
+      categories.splice(categories.indexOf(category), 1);
+    },
+    get: function(category) {
+      for (var i = 0; i < categories.length; i++) {
+        if (categories[i].category === (category)) { //parseInt
+          return categories[i];
+        }
+      }
+      return null;
     }
   };
 });

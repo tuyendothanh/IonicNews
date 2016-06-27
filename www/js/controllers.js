@@ -30,10 +30,10 @@ angular.module('starter.controllers', [])
 		}]
 	)
 
-.controller('DashCtrl', function($scope, Chats) {
+.controller('DashCtrl', function($scope, Categories) {
   $scope.myTitle = 'Template';
   $scope.$on('$ionicView.enter', function(e) {
-    $scope.items = Chats.image_urls();
+    $scope.items = Categories.all();
   });
 })
 
